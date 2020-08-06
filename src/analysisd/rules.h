@@ -84,6 +84,7 @@
 #define MAX_RULEINFODETAIL  32
 
 typedef struct EventList EventList;
+typedef struct _Eventinfo Eventinfo;
 
 typedef struct _RuleInfoDetail {
     int type;
@@ -215,6 +216,18 @@ typedef struct _RuleNode {
     struct _RuleNode *child;
 } RuleNode;
 
+
+/**
+ * @brief Check if a rule matches the event
+ * @param lf event to be processed
+ * @param last_events list of previous events processed
+ * @param cdblists list of cdbs
+ * @param curr_node rule to compare with the event "lf"
+ * @param rule_match stores the regex of the rule
+ * @return the rule information if it matches, otherwise null
+ */
+RuleInfo *OS_CheckIfRuleMatch(Eventinfo *lf, EventList *last_events, ListNode **cdblists, RuleNode *curr_node,
+                              regex_matching *rule_match, OSList **fts_list, OSHash **fts_store);
 
 RuleInfoDetail *zeroinfodetails(int type, const char *data);
 int get_info_attributes(char **attributes, char **values, OSList* log_msg);
